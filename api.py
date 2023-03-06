@@ -38,3 +38,20 @@ class PetsApi:
             'status': all_pets_res.status_code,
             'result': all_pets_res.json(),
         }
+
+    def post_api_create_pet_simple(self, api_key, create_pet_data):
+        create_pet_simple = '/api/create_pet_simple'
+        url = base_url + create_pet_simple
+
+        create_pet_simple_headars = {
+            'auth_key': api_key,
+        }
+
+
+
+        create_pet_simple_res = requests.post(url, headers=create_pet_simple_headars, data=create_pet_data)
+
+        return {
+            'status': create_pet_simple_res.status_code,
+            'result': create_pet_simple_res.json(),
+        }
