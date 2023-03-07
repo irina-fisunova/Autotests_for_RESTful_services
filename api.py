@@ -1,4 +1,6 @@
 import json
+from json import JSONDecodeError
+
 import requests
 from settings import base_url
 class PetsApi:
@@ -34,9 +36,14 @@ class PetsApi:
 
         all_pets_res = requests.get(url, headers=all_pets_headars, params=all_pets_params)
 
+        try:
+            result = all_pets_res.json()
+        except JSONDecodeError:
+            result = None
+
         return {
             'status': all_pets_res.status_code,
-            'result': all_pets_res.json(),
+            'result': result,
         }
 
     def post_api_create_pet_simple(self, api_key, create_pet_data):
@@ -46,8 +53,6 @@ class PetsApi:
         create_pet_simple_headars = {
             'auth_key': api_key,
         }
-
-
 
         create_pet_simple_res = requests.post(url, headers=create_pet_simple_headars, data=create_pet_data)
 
@@ -84,6 +89,8 @@ class PetsApi:
             'status': put_api_pets_pet_id_res.status_code,
             'result': put_api_pets_pet_id_res.json(),
         }
+
+
 
 
     # def post_api_pets(self, api_key, create_pet_data, pet_photo_path):
