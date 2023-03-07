@@ -86,7 +86,6 @@ class TestPetsApi:
         api_key = response_api_key['result']['key']
         pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
         create_pet_data['pet_photo'] = (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
-        print(create_pet_data)
         response_data = self.pets_api.post_api_pets(self, api_key, create_pet_data)
 
         assert response_data['status'] == 200
