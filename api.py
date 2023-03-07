@@ -56,23 +56,41 @@ class PetsApi:
             'result': create_pet_simple_res.json(),
         }
 
-    def post_api_pets(self, api_key, create_pet_data, pet_photo):
-        api_pets = '/api/pets'
-        url = base_url + api_pets
+    # def post_api_pets(self, api_key, create_pet_data, pet_photo_path):
+    #     api_pets = '/api/pets'
+    #     url = base_url + api_pets
+    #
+    #     api_pets_headars = {
+    #         'accept': 'application/json',
+    #         'Content-Type': 'multipart/form-data',
+    #         'auth_key': api_key,
+    #     }
+    #
+    #     # file = {'pet_photo': open(pet_photo_path, 'rb')}
+    #     create_pet_data['pet_photo'] = open(pet_photo_path, 'rb')
+    #     # print()
+    #     # print(file)
+    #
+    #     api_pets_res = requests.post(url, headers=api_pets_headars, data=create_pet_data)
+    #     print()
+    #     print("api_pets_res: ")
+    #     print(api_pets_res)
+    #
+    #     return {
+    #         'status': api_pets_res.status_code,
+    #         'result': api_pets_res,
+    #     }
 
-        file = {'pet_photo': (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')}
-        print(file)
+    def delete_api_pets_pet_id(self, api_key, pet_id):
+        api_pets_pet_id = f'/api/pets/{pet_id}'
+        url = base_url + api_pets_pet_id
 
-        api_pets_headars = {
-            'accept': 'application/json',
-            'Content-Type': 'multipart/form-data',
+        api_pets_pet_id_headars = {
             'auth_key': api_key,
         }
 
-        api_pets_res = requests.post(url, files=pet_photo, headers=api_pets_headars, data=create_pet_data)
-        print(api_pets_res)
+        api_pets_pet_id_res = requests.delete(url, headers=api_pets_pet_id_headars)
 
         return {
-            'status': api_pets_res.status_code,
-            'result': api_pets_res.json(),
+            'status': api_pets_pet_id_res.status_code,
         }
