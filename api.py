@@ -56,6 +56,36 @@ class PetsApi:
             'result': create_pet_simple_res.json(),
         }
 
+    def delete_api_pets_pet_id(self, api_key, pet_id):
+        api_pets_pet_id = f'/api/pets/{pet_id}'
+        url = base_url + api_pets_pet_id
+
+        api_pets_pet_id_headars = {
+            'auth_key': api_key,
+        }
+
+        api_pets_pet_id_res = requests.delete(url, headers=api_pets_pet_id_headars)
+
+        return {
+            'status': api_pets_pet_id_res.status_code,
+        }
+
+    def put_api_pets_pet_id(self, api_key, put_data, pet_id):
+        put_api_pets_pet_id = f"/api/pets/{pet_id}"
+        url = base_url + put_api_pets_pet_id
+
+        put_api_pets_pet_id_headars = {
+            'auth_key': api_key,
+        }
+
+        put_api_pets_pet_id_res = requests.put(url, headers=put_api_pets_pet_id_headars, data=put_data)
+
+        return {
+            'status': put_api_pets_pet_id_res.status_code,
+            'result': put_api_pets_pet_id_res.json(),
+        }
+
+
     # def post_api_pets(self, api_key, create_pet_data, pet_photo_path):
     #     api_pets = '/api/pets'
     #     url = base_url + api_pets
@@ -80,17 +110,3 @@ class PetsApi:
     #         'status': api_pets_res.status_code,
     #         'result': api_pets_res,
     #     }
-
-    def delete_api_pets_pet_id(self, api_key, pet_id):
-        api_pets_pet_id = f'/api/pets/{pet_id}'
-        url = base_url + api_pets_pet_id
-
-        api_pets_pet_id_headars = {
-            'auth_key': api_key,
-        }
-
-        api_pets_pet_id_res = requests.delete(url, headers=api_pets_pet_id_headars)
-
-        return {
-            'status': api_pets_pet_id_res.status_code,
-        }

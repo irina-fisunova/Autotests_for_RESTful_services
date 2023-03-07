@@ -8,4 +8,3 @@ create_pet_data = {
     'animal_type': 'Sobaka',
     'age': 10,
 }
-# pet_photo = os.path.abspath('./images/dog.jpg'), 'rb')}
