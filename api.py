@@ -90,7 +90,7 @@ class PetsApi:
             'result': put_api_pets_pet_id_res.json(),
         }
 
-    def post_api_pets(self, api_key, create_pet_data, pet_photo_path):
+    def post_api_pets(self, api_key, create_pet_data, pet_photo):
         api_pets = '/api/pets'
         url = base_url + api_pets
 
@@ -100,9 +100,7 @@ class PetsApi:
             'auth_key': api_key,
         }
 
-        file = {'pet_photo': open(pet_photo_path, 'rb')}
-
-        api_pets_res = requests.post(url, headers=api_pets_headars, data=create_pet_data, files=file)
+        api_pets_res = requests.post(url, headers=api_pets_headars, data=create_pet_data)
 
         return {
             'status': api_pets_res.status_code,

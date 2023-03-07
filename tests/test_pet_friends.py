@@ -81,13 +81,13 @@ class TestPetsApi:
         assert 'user_id' in response_put_data['result']
         assert response_put_data['result']['user_id'] == api_key
 
-
-
-
-    def test_post_api_pets(self):
+    def test_post_api_pets(self, pet_photo='images/dog.jpg'):
         response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
         api_key = response_api_key['result']['key']
-        response_data = self.pets_api.post_api_pets(self, api_key, create_pet_data, os.path.abspath('./images/dog.jpg'))
+        pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
+        create_pet_data['pet_photo'] = (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
+        print(create_pet_data)
+        response_data = self.pets_api.post_api_pets(self, api_key, create_pet_data)
 
         assert response_data['status'] == 200
         assert 'age' in response_data['result']
