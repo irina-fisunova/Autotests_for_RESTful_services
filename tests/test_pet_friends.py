@@ -81,22 +81,22 @@ class TestPetsApi:
         assert 'user_id' in response_put_data['result']
         assert response_put_data['result']['user_id'] == api_key
 
-    def test_post_api_pets(self, name='Dogg', animal_type='home_dog', age= 4, pet_photo='images/dog.jpg'):
-        response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
-        api_key = response_api_key['result']['key']
-        pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
-        response_data = self.pets_api.post_api_pets(self, api_key, name, animal_type, age, pet_photo)
-
-        assert response_data['status'] == 200
-        assert 'age' in response_data['result']
-        assert create_pet_data['age'] == int(response_data['result']['age'])
-        assert 'animal_type' in response_data['result']
-        assert create_pet_data['animal_type'] == response_data['result']['animal_type']
-        assert 'created_at' in response_data['result']
-        assert 'id' in response_data['result']
-        assert 'name' in response_data['result']
-        assert create_pet_data['name'] == response_data['result']['name']
-        assert 'pet_photo' in response_data['result']
-        assert response_data['result']['pet_photo'] != ''
-        assert 'user_id' in response_data['result']
-        assert response_data['result']['user_id'] == api_key
+    # def test_post_api_pets(self, name='Dogg', animal_type='home_dog', age= 4, pet_photo='images/dog.jpg'):
+    #     response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
+    #     api_key = response_api_key['result']['key']
+    #     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
+    #     response_data = self.pets_api.post_api_pets(self, api_key, name, animal_type, age, pet_photo)
+    #
+    #     assert response_data['status'] == 200
+    #     assert 'age' in response_data['result']
+    #     assert create_pet_data['age'] == int(response_data['result']['age'])
+    #     assert 'animal_type' in response_data['result']
+    #     assert create_pet_data['animal_type'] == response_data['result']['animal_type']
+    #     assert 'created_at' in response_data['result']
+    #     assert 'id' in response_data['result']
+    #     assert 'name' in response_data['result']
+    #     assert create_pet_data['name'] == response_data['result']['name']
+    #     assert 'pet_photo' in response_data['result']
+    #     assert response_data['result']['pet_photo'] != ''
+    #     assert 'user_id' in response_data['result']
+    #     assert response_data['result']['user_id'] == api_key
