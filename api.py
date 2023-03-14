@@ -16,9 +16,14 @@ class PetsApi:
         url = base_url + key_api
         key_res = requests.get(f"{url}", headers=key_headers)
 
+        try:
+            result = key_res.json()
+        except JSONDecodeError as error:
+            result = None
+
         return {
             'status': key_res.status_code,
-            'result': key_res.json(),
+            'result': result,
         }
 
     def get_api_all_pets (self, api_key, filter='my_pets'):
