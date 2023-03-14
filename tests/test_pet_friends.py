@@ -12,6 +12,18 @@ class TestPetsApi:
         assert response_data['status'] == 200
         assert 'key' in response_data['result']
 
+    def test_get_api_key_3(self):
+        response_data = self.pets_api.get_api_key_2(self, email=valid_email, password=valid_password)
+        print(response_data['headers'])
+        assert response_data['status'] == 405
+        assert response_data['result'] == None
+
+    def test_get_api_key_negative_2(self):
+        response_data = self.pets_api.get_api_key(self, email=valid_email, password='kjhkh///-')
+
+        assert response_data['status'] == 403
+        assert response_data['result'] == None
+
     def test_get_api_key_negative_1(self):
         response_data = self.pets_api.get_api_key(self, email='hgjhdfgjhdgf454', password=valid_password)
 

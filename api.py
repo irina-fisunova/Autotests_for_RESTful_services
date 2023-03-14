@@ -18,12 +18,37 @@ class PetsApi:
 
         try:
             result = key_res.json()
-        except JSONDecodeError as error:
+        except JSONDecodeError:
             result = None
 
         return {
             'status': key_res.status_code,
             'result': result,
+            'headers': key_res.headers,
+        }
+
+    def get_api_key_2 (self, email: str, password: str) -> json:
+        # использование некорректного метода
+
+        key_api = "/api/key"
+        key_headers = {
+            'accept': 'application/json',
+            'email': email,
+            "password": password,
+        }
+
+        url = base_url + key_api
+        key_res = requests.put(f"{url}", headers=key_headers)
+
+        try:
+            result = key_res.json()
+        except JSONDecodeError:
+            result = None
+
+        return {
+            'status': key_res.status_code,
+            'result': result,
+            'headers': key_res.headers,
         }
 
     def get_api_all_pets (self, api_key, filter='my_pets'):
