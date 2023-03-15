@@ -73,20 +73,20 @@ class TestPetsApi:
          response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
          api_key = response_api_key['result']['key']
          response_data = self.pets_api.post_api_create_pet_simple_neg(self, api_key, create_pet_data)
-         print(response_data['headers'])
+         # print(response_data['headers'])
 
-         assert response_data['status'] == 200
-         assert 'age' in response_data['result']
-         assert create_pet_data['age'] == int(response_data['result']['age'])
-         assert 'animal_type' in response_data['result']
-         assert create_pet_data['animal_type'] == response_data['result']['animal_type']
-         assert 'created_at' in response_data['result']
-         assert 'id' in response_data['result']
-         assert 'name' in response_data['result']
-         assert create_pet_data['name'] == response_data['result']['name']
-         assert 'pet_photo' in response_data['result']
-         assert 'user_id' in response_data['result']
-         assert response_data['result']['user_id'] == api_key
+         assert response_data['status'] == 405
+         # assert 'age' in response_data['result']
+         # assert create_pet_data['age'] == int(response_data['result']['age'])
+         # assert 'animal_type' in response_data['result']
+         # assert create_pet_data['animal_type'] == response_data['result']['animal_type']
+         # assert 'created_at' in response_data['result']
+         # assert 'id' in response_data['result']
+         # assert 'name' in response_data['result']
+         # assert create_pet_data['name'] == response_data['result']['name']
+         # assert 'pet_photo' in response_data['result']
+         # assert 'user_id' in response_data['result']
+         # assert response_data['result']['user_id'] == api_key
 
     def test_delete_api_pets_pet_id(self):
         response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
@@ -141,6 +141,34 @@ class TestPetsApi:
         assert response_put_data['result']['pet_photo'] == ''
         assert 'user_id' in response_put_data['result']
         assert response_put_data['result']['user_id'] == api_key
+
+    def test_put_api_pets_pet_id_negative(self):
+        response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
+        api_key = response_api_key['result']['key']
+        response_data = self.pets_api.post_api_create_pet_simple(self, api_key, create_pet_data)
+        res_id = response_data['result']['id']
+        put_data = {
+            'name': 'Грелка',
+            'animal_type': 'кошка',
+            'age': 13,
+        }
+        response_put_data = self.pets_api.put_api_pets_pet_id_2(self, api_key, put_data, res_id)
+
+        print(response_put_data['headers'])
+
+        assert response_put_data['status'] == 405
+         # assert 'age' in response_put_data['result']
+         # assert put_data['age'] == int(response_put_data['result']['age'])
+         # assert 'animal_type' in response_put_data['result']
+         # assert put_data['animal_type'] == response_put_data['result']['animal_type']
+         # assert 'created_at' in response_put_data['result']
+         # assert 'id' in response_put_data['result']
+         # assert 'name' in response_put_data['result']
+         # assert put_data['name'] == response_put_data['result']['name']
+         # assert 'pet_photo' in response_put_data['result']
+         # assert response_put_data['result']['pet_photo'] == ''
+         # assert 'user_id' in response_put_data['result']
+         # assert response_put_data['result']['user_id'] == api_key
 
     # def test_post_api_pets(self, name='Dogg', animal_type='home_dog', age= 4, pet_photo='images/dog.jpg'):
     #     response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)

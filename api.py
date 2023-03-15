@@ -156,6 +156,28 @@ class PetsApi:
             'result': put_api_pets_pet_id_res.json(),
         }
 
+    def put_api_pets_pet_id_2(self, api_key, put_data, pet_id):
+        put_api_pets_pet_id = f"/api/pets/{pet_id}"
+        url = base_url + put_api_pets_pet_id
+
+        put_api_pets_pet_id_headars = {
+            'auth_key': api_key,
+        }
+
+        put_api_pets_pet_id_res = requests.post(url, headers=put_api_pets_pet_id_headars, data=put_data)
+
+        try:
+            result = put_api_pets_pet_id_res.json()
+
+        except JSONDecodeError:
+            result = None
+
+        return {
+            'status': put_api_pets_pet_id_res.status_code,
+            'result': result,
+            'headers': put_api_pets_pet_id_res.headers,
+        }
+
     # def post_api_pets(self, api_key, name, animal_type, age, pet_photo):
     #     api_pets = '/api/pets'
     #     url = base_url + api_pets
