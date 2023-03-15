@@ -14,7 +14,8 @@ class TestPetsApi:
 
     def test_get_api_key_3(self):
         response_data = self.pets_api.get_api_key_2(self, email=valid_email, password=valid_password)
-        print(response_data['headers'])
+        # print(response_data['headers'])
+
         assert response_data['status'] == 405
         assert response_data['result'] == None
 
@@ -51,6 +52,9 @@ class TestPetsApi:
         response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
         api_key = response_api_key['result']['key']
         response_data = self.pets_api.post_api_create_pet_simple(self, api_key, create_pet_data)
+        # print(api_key)
+        # print(response_data)
+        # print(response_data['headers'])
 
         assert response_data['status'] == 200
         assert 'age' in response_data['result']
@@ -65,6 +69,25 @@ class TestPetsApi:
         assert 'user_id' in response_data['result']
         assert response_data['result']['user_id'] == api_key
 
+    def test_post_api_create_pet_simple_neg(self):
+         response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
+         api_key = response_api_key['result']['key']
+         response_data = self.pets_api.post_api_create_pet_simple_neg(self, api_key, create_pet_data)
+         print(response_data['headers'])
+
+         assert response_data['status'] == 200
+         assert 'age' in response_data['result']
+         assert create_pet_data['age'] == int(response_data['result']['age'])
+         assert 'animal_type' in response_data['result']
+         assert create_pet_data['animal_type'] == response_data['result']['animal_type']
+         assert 'created_at' in response_data['result']
+         assert 'id' in response_data['result']
+         assert 'name' in response_data['result']
+         assert create_pet_data['name'] == response_data['result']['name']
+         assert 'pet_photo' in response_data['result']
+         assert 'user_id' in response_data['result']
+         assert response_data['result']['user_id'] == api_key
+
     def test_delete_api_pets_pet_id(self):
         response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
         api_key = response_api_key['result']['key']
@@ -73,6 +96,25 @@ class TestPetsApi:
         response_data_del = self.pets_api.delete_api_pets_pet_id(self, api_key, res_id)
 
         assert response_data_del['status'] == 200
+
+    def test_delete_api_pets_pet_id_negative(self):
+        response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
+        api_key = response_api_key['result']['key']
+        print(api_key)
+        res_id = "1234jhfgjfvhgkff"
+        response_data_del = self.pets_api.delete_api_pets_pet_id(self, api_key, res_id)
+        #print(response_data_del)
+        assert response_data_del['status'] == 200
+
+    def test_delete_api_pets_pet_id(self):
+        response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)
+        api_key = response_api_key['result']['key']
+        response_data = self.pets_api.post_api_create_pet_simple(self, api_key, create_pet_data)
+        res_id = response_data['result']['id']
+        response_data_del = self.pets_api.delete_api_pets_pet_id_2(self, api_key, res_id)
+        # print(response_data_del['headers'])
+
+        assert response_data_del['status'] == 405
 
     def test_put_api_pets_pet_id(self):
         response_api_key = self.pets_api.get_api_key(self, email=valid_email, password=valid_password)

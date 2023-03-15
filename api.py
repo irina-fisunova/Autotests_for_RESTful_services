@@ -89,6 +89,26 @@ class PetsApi:
         return {
             'status': create_pet_simple_res.status_code,
             'result': create_pet_simple_res.json(),
+            'headers': create_pet_simple_res.headers
+        }
+
+    def post_api_create_pet_simple_neg(self, api_key, create_pet_data):
+        create_pet_simple = '/api/create_pet_simple'
+        url = base_url + create_pet_simple
+
+        create_pet_simple_headars = {
+            'auth_key': api_key,
+        }
+
+        create_pet_simple_res = requests.get(url, headers=create_pet_simple_headars, data=create_pet_data)
+        try:
+            result = create_pet_simple_res.json()
+        except JSONDecodeError:
+            result = None
+        return {
+            'status': create_pet_simple_res.status_code,
+            'result': result,
+            'headers': create_pet_simple_res.headers
         }
 
     def delete_api_pets_pet_id(self, api_key, pet_id):
@@ -103,6 +123,22 @@ class PetsApi:
 
         return {
             'status': api_pets_pet_id_res.status_code,
+            'headers': api_pets_pet_id_res.headers,
+        }
+
+    def delete_api_pets_pet_id_2(self, api_key, pet_id):
+        api_pets_pet_id = f'/api/pets/{pet_id}'
+        url = base_url + api_pets_pet_id
+
+        api_pets_pet_id_headars = {
+            'auth_key': api_key,
+        }
+
+        api_pets_pet_id_res = requests.get(url, headers=api_pets_pet_id_headars)
+
+        return {
+            'status': api_pets_pet_id_res.status_code,
+            'headers': api_pets_pet_id_res.headers,
         }
 
     def put_api_pets_pet_id(self, api_key, put_data, pet_id):
